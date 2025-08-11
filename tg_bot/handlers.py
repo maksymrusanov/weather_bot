@@ -2,6 +2,7 @@ from aiogram import Router, F
 from aiogram.filters import CommandStart, Command
 from aiogram.types import Message, CallbackQuery
 from tg_bot.states import weather
+from main import get_weather
 from aiogram.types import (
     KeyboardButton,
     Message,
@@ -21,12 +22,26 @@ async def start(message: Message, state):
 @router.message(weather.location)
 async def process_location(message, state):
     await state.update_data(location=message.text)
+    await message.answer(text=f'you entered {message.text}')
+    await message.answer(text='Enter you days: ', reply_markup=ReplyKeyboardRemove())
     await state.set_state(weather.days)
 
 
 @router.message(weather.days)
 async def process_days(message, state):
-    await message.answer(text='Enter you days: ', reply_markup=ReplyKeyboardRemove())
     await state.update_data(days=message.text)
+    # get = await state.get_data()
+    # await message.answer(f'you entered {get['location']} and {get['days']} days')
+
+    # async def show_weather(message, state):
     get = await state.get_data()
-    await
+    temp_c, cond, feels_like = get_weather(
+        location=get['location'], days=get['days'])
+    await message.answer(f'here is you weather\ntemp:{temp_c}\ncond: {cond}\nfeels like: {feels_like}')
+
+
+# @router.message()
+# async def show_weather(message, state):
+#     get = await state.get_data()
+#     temp_c, cond, feels_like = get_weather(location=await get['location'], days=get['days'])
+#     await message.answer(f'here is you weather\ntemp{temp_c}\ncond{cond}\nfeels like{feels_like}')
