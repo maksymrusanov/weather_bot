@@ -2,7 +2,7 @@ from aiogram import Router, F
 from aiogram.filters import CommandStart, Command
 from aiogram.types import Message, CallbackQuery
 from tg_bot.states import weather
-from main import get_weather
+from weather_app import get_weather
 from aiogram.types import (
     KeyboardButton,
     Message,
@@ -35,9 +35,11 @@ async def process_days(message, state):
 
     # async def show_weather(message, state):
     get = await state.get_data()
-    temp_c, cond, feels_like = get_weather(
-        location=get['location'], days=get['days'])
-    await message.answer(f'here is you weather\ntemp:{temp_c}\ncond: {cond}\nfeels like: {feels_like}')
+    max_temp_c_list, cond_list, feels_like, cond_pic_list, min_temp_c_list, date_list = get_weather(
+        location=get['location'], days=int(get['days']))
+    await message.answer(text='here is you weather')
+    for max_temp, cond_text, cond_pic, min_temp, date in zip(max_temp_c_list, cond_list, cond_pic_list, min_temp_c_list, date_list):
+        await message.answer_photo(caption=f'date:{date}\nmin temperature{min_temp}\nmax temperature:{max_temp}\ncondition:{cond_text}\nfeels like: {feels_like}', photo=f'https:{cond_pic}')
 
 
 # @router.message()
