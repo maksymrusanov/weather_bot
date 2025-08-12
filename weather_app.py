@@ -30,8 +30,14 @@ def get_weather(location, days):
             data_json['forecast']['forecastday'][i]['day']["condition"]['icon'])
         min_temp_c_list.append(
             data_json['forecast']['forecastday'][i]['day']['mintemp_c'])
-    print(cond_list_pic)
+
+    for day in range(days):
+        date_list.append(data_json['forecast']['forecastday'][day]['date'])
+
+    print(date_list)
+
     return max_temp_c_list, cond_list, feels_like, cond_list_pic, min_temp_c_list, date_list
+    print(date_list)
 
 
-# get_weather(location='london', days=2)
+# get_weather(location='london', days=5)

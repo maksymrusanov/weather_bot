@@ -30,20 +30,9 @@ async def process_location(message, state):
 @router.message(weather.days)
 async def process_days(message, state):
     await state.update_data(days=message.text)
-    # get = await state.get_data()
-    # await message.answer(f'you entered {get['location']} and {get['days']} days')
-
-    # async def show_weather(message, state):
     get = await state.get_data()
     max_temp_c_list, cond_list, feels_like, cond_pic_list, min_temp_c_list, date_list = get_weather(
         location=get['location'], days=int(get['days']))
-    await message.answer(text='here is you weather')
+    await message.answer(f'Now feels like: {feels_like} °C ')
     for max_temp, cond_text, cond_pic, min_temp, date in zip(max_temp_c_list, cond_list, cond_pic_list, min_temp_c_list, date_list):
-        await message.answer_photo(caption=f'date:{date}\nmin temperature{min_temp}\nmax temperature:{max_temp}\ncondition:{cond_text}\nfeels like: {feels_like}', photo=f'https:{cond_pic}')
-
-
-# @router.message()
-# async def show_weather(message, state):
-#     get = await state.get_data()
-#     temp_c, cond, feels_like = get_weather(location=await get['location'], days=get['days'])
-#     await message.answer(f'here is you weather\ntemp{temp_c}\ncond{cond}\nfeels like{feels_like}')
+        await message.answer_photo(caption=f'city:{get['location']}\nDate:{date}\nMin temperature for today: {min_temp} °C \nMax temperature for today :{max_temp} °C \nCondition:{cond_text}\n', photo=f'https:{cond_pic}')
