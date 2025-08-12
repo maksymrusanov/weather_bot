@@ -20,8 +20,6 @@ def get_weather(location, days):
     date_list = []
 
     feels_like = data_json['current']['feelslike_c']
-    with open('res.json', 'w') as file:
-        json.dump(data_json, file, indent=4)
     for i in range(days):
         date_list.append(data_json['forecast']['forecastday'][i]['date'])
         max_temp_c_list.append(
