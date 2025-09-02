@@ -23,7 +23,7 @@ async def start(message: Message, state):
 async def process_location(message, state):
     await state.update_data(location=message.text)
     await message.answer(text=f'you entered {message.text}')
-    await message.answer(text='Enter you days: ', reply_markup=ReplyKeyboardRemove())
+    await message.answer(text='Enter you days:(no more then 3,sorry,i have free api ) ', reply_markup=ReplyKeyboardRemove())
     await state.set_state(weather.days)
 
 
