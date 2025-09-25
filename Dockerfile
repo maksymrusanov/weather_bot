@@ -3,4 +3,5 @@ WORKDIR /app
 COPY req.txt .
 RUN pip install -r req.txt
 COPY . .
-CMD [ "python","bot_main.py" ]
+EXPOSE 8080
+CMD [ "python","bot_main.py" '' ]
