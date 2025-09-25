@@ -35,4 +35,4 @@ async def process_days(message, state):
         location=get['location'], days=int(get['days']))
     await message.answer(f'Now feels like: {feels_like} °C ')
     for max_temp, cond_text, cond_pic, min_temp, date in zip(max_temp_c_list, cond_list, cond_pic_list, min_temp_c_list, date_list):
-        await message.answer_photo(caption=f'city:{get['location']}\nDate:{date}\nMin temperature for today: {min_temp} °C \nMax temperature for today :{max_temp} °C \nCondition:{cond_text}\n', photo=f'https:{cond_pic}')
+        await message.answer_photo(caption=f'city:{get['location']}\nDate:{date}\nMin temperature for a day: {min_temp} °C \nMax temperature for day :{max_temp} °C \nCondition:{cond_text}\n', photo=f'https:{cond_pic}')
