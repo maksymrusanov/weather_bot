@@ -11,7 +11,6 @@ from dotenv import load_dotenv
 from tg_bot.handlers import router
 load_dotenv()
 TOKEN = getenv('BOT_TOKEN')
-print(TOKEN)
 bot = Bot(TOKEN)
 dp = Dispatcher()
 
