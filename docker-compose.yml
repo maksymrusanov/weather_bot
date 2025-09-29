@@ -2,8 +2,9 @@ version: "3.8"
 
 services:
   weather_bot:
-    image: weather_bot:latest
+    image: weather_bot:arm64
     restart: always
     environment:
       - BOT_TOKEN=${BOT_TOKEN}
       - WEATHER_API=${WEATHER_API}
+    platform: linux/arm64
