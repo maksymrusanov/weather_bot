@@ -1,5 +1,8 @@
 version: "3.8"
 
+secrets:
+  my_secret:
+    file: .env
 services:
   weather_bot:
     image: weather_bot:arm64
